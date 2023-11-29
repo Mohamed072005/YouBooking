@@ -1,3 +1,4 @@
+<?php include 'connexion.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,7 +59,7 @@
                     <p class="text-center small">Enter your personal details to create account</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form class="row g-3 needs-validation" novalidate action="action/insertregister.php" method="post">
                     <div class="col-12">
                       <label for="yourName" class="form-label">Your Name</label>
                       <input type="text" name="name" class="form-control" id="yourName" required>
@@ -72,12 +73,9 @@
                     </div>
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
-                      <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please choose a username.</div>
-                      </div>
+                      <label for="phone" class="form-label">Phone</label>
+                      <input type="text" name="phone" class="form-control" id="phone" required>
+                      <div class="invalid-feedback">Please enter a valid phone number!</div>
                     </div>
 
                     <div class="col-12">
@@ -85,16 +83,21 @@
                       <input type="password" name="password" class="form-control" id="yourPassword" required>
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
-
                     <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
-                        <div class="invalid-feedback">You must agree before submitting.</div>
-                      </div>
+                          <label for="yourPassword" class="form-label">type</label>
+                        <select name="type" class="form-control" id="">
+                                  <?php  $sql="SELECT `request_id`, `request` FROM `request` where request!='responsable' and request!='virifiedproprietaire' and request!='virfiedresponsable'";
+                                        $res=mysqli_query($conn,$sql);
+                                        while($row=mysqli_fetch_assoc($res)){?>
+                                        <option value="<?=$row['request_id']?>"><?=$row['request']?></option>
+                                      
+                                <?php }?>
+                        </select>
                     </div>
+
+                   
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                      <input  class="btn btn-primary w-100" name="insert" type="submit"   value="Creat">
                     </div>
                     <div class="col-12">
                       <p class="small mb-0">Already have an account? <a href="login.php">Log in</a></p>

@@ -140,15 +140,15 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=1){
           <span>Statistiques  </span>
         </a>
       </li>
- 
+  
       <li class="nav-item ">
-        <a class="nav-link " href="utlisateurs.php">
+        <a class="nav-link collapsed " href="utlisateurs.php">
           <i class="bi bi-grid"></i>
           <span>Gestion des Utilisateurs </span>
         </a>
       </li>
       <li class="nav-item ">
-        <a class="nav-link collapsed" href="request.php">
+        <a class="nav-link " href="request.php">
           <i class="bi bi-grid"></i>
           <span>Requests </span>
         </a>
@@ -183,12 +183,12 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=1){
         <tr>
           <th>Nom et Prenom</th>
           <th>Email</th>
-          <th>Role</th>
+          <th>request</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <?php $sql = "SELECT * FROM users NATURAL JOIN roles ";
+        <?php $sql = "SELECT * FROM users  natural join request where request_id=1 ";
                $result = mysqli_query($conn, $sql);   
                if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) { ?>
@@ -205,12 +205,12 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=1){
             <p class="fw-bold mb-1"><?=$row['email']?></p>
           </td>
           <td>
-            <span class="badge btn btn-success"><?=$row['role_type']?></span>
+            <span class="badge btn btn-success"><?=$row['request']?></span>
           </td>
           <td>
            
-            <a type="button" class="btn btn-warning">baner</a>
-            <a type="button" href="action/deletuser.php?id=<?=$row['user_id']?>" class="btn btn-danger">Supreme</a>
+            <a type="button" href="action/accepterrequest.php?id=<?=$row['user_id']?>" class="btn btn-success">accepter</a>
+            <a type="button" href="action/refusérequest.php?id=<?=$row['user_id']?>" class="btn btn-danger">refuseé</a>
           </td>
         </tr>   <?php }}?>
       </tbody>

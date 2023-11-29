@@ -141,7 +141,7 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=1){
         </a>
       </li>
  
-      <li class="nav-item ">
+      <li class="nav-item collapsed ">
         <a class="nav-link " href="utlisateurs.php">
           <i class="bi bi-grid"></i>
           <span>Gestion des Utilisateurs </span>
@@ -181,36 +181,32 @@ if(!isset($_SESSION['role_id']) ||  $_SESSION['role_id']!=1){
     <table class="table align-middle mb-0 bg-white shadow " >
       <thead class="bg-light">
         <tr>
-          <th>Nom et Prenom</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Actions</th>
+          <th>name</th>
+          <th>location</th>
+          <th>phone</th>
+          <th>amenties</th>
         </tr>
       </thead>
       <tbody>
-        <?php $sql = "SELECT * FROM users NATURAL JOIN roles ";
+        <?php $sql = "SELECT * FROM hotel NATURAL JOIN localisation ";
                $result = mysqli_query($conn, $sql);   
                if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) { ?>
         <tr>
+         
           <td>
-            <div class="d-flex align-items-center">
-              <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
-              <div class="ms-3">
-                <p class="fw-bold mb-1"><?=$row['name']?></p>
-              </div>
-            </div>
+            <p class=""><?=$row['name']?></p>
           </td>
           <td>
-            <p class="fw-bold mb-1"><?=$row['email']?></p>
+            <span class=""><?=$row['pays']?> <?=$row['ville']?></span>
           </td>
           <td>
-            <span class="badge btn btn-success"><?=$row['role_type']?></span>
+            <span class=""> <?=$row['contact_number']?></span>
           </td>
           <td>
            
             <a type="button" class="btn btn-warning">baner</a>
-            <a type="button" href="action/deletuser.php?id=<?=$row['user_id']?>" class="btn btn-danger">Supreme</a>
+            <a type="button"  class="btn btn-danger">Supreme</a>
           </td>
         </tr>   <?php }}?>
       </tbody>
