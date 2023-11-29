@@ -1,9 +1,8 @@
-<?php  session_start();
-    
-    if( !isset($_SESSION['role_id']) || $_SESSION['role_id'] != 1 && $_SESSION['role_id'] != 2){
-          header('location:./login.php');
-    }
+<?php  include 'connexion.php';
+session_start();
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,7 +71,7 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?= $_SESSION['name']?> <?= $_SESSION['role_id']?></span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?= $_SESSION['name']?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -131,7 +130,7 @@
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
 
-    <ul class="sidebar-nav" id="sidebar-nav">
+  <ul class="sidebar-nav" id="sidebar-nav">
 <?php    
     if( $_SESSION['role_id'] == 1  ){?>
            <li class="nav-item">
@@ -181,13 +180,51 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Accueil</a></li>
-          <li class="breadcrumb-item active">Statistiques</li>
+          <li class="breadcrumb-item active">Gestion des Utilisateurs </li>
         </ol>
       </nav>
     </div>
     <section class="section dashboard">
 <!--Content  ------------------------------------------------>
-
+  
+  
+    <table class="table align-middle mb-0 bg-white shadow " >
+      <thead class="bg-light">
+        <tr>
+          <th>Hotel Name</th>
+          <th>Contact Number</th>
+          <th>Amenities</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <?php
+          $id = $_SESSION['user_id'];
+         $sql = "SELECT * FROM hotel WHERE id_user = '$id'";
+               $result = mysqli_query($conn, $sql);   
+               if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) { ?>
+        <tr>
+          <td>
+            <div class="d-flex align-items-center">
+              <img src="./assets/./img/AdobeStock_90114933_Preview.jpeg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+              <div class="ms-3">
+                <p class="fw-bold mb-1"><?=$row['name']?></p>
+              </div>
+            </div>
+          </td>
+          <td>
+            <p class="fw-bold mb-1"><?=$row['contact_number']?></p>
+          </td>
+          <td>
+            <p class="fw-bold mb-1"><?=$row['amenities']?></p>
+          </td>
+          <td>
+            <a class="btn btn-outline-success" href="">add</a>
+          </td>
+        </tr>   <?php }}?>
+      </tbody>
+    </table>
 
     </section>
   </main>
