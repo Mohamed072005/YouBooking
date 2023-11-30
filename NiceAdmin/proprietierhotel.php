@@ -34,7 +34,7 @@ session_start();
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
 <body>
@@ -200,9 +200,9 @@ session_start();
         
         <?php
           $id = $_SESSION['user_id'];
-         $sql = "SELECT * FROM hotel WHERE id_user = '$id'";
-               $result = mysqli_query($conn, $sql);   
-               if (mysqli_num_rows($result) > 0) {
+          $sql = "SELECT * FROM hotel WHERE id_user = '$id'";
+          $result = mysqli_query($conn, $sql);   
+              if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) { ?>
         <tr>
           <td>
@@ -220,8 +220,48 @@ session_start();
             <p class="fw-bold mb-1"><?=$row['amenities']?></p>
           </td>
           <td>
-            <a class="btn btn-outline-success" href="">add</a>
-          </td>
+            <!-- Button trigger modal -->
+            <td><a href="?action=delete&id=<?= $row['id']; ?>">delete </a> <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $row['id']; ?>">Edit</a></td>
+            </tr>
+
+            <div class="modal fade" id="exampleModal<?= $row['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">add contact</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post">
+                                <div>
+                                    <label for="inputFirstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="inputLastName" name="id" value="<?= $row['name']; ?>" required>
+                                </div> 
+                                <div class="mb-3">
+                                    <label for="inputFirstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="inputFirstName" name="firstName" value="<?= $row['contact_number']; ?>"
+                                        required>
+                                </div>
+                                    <label for="inputLastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="inputLastName" name="lastName" value="<?= $row['amenities']; ?>" required>
+                                </div>
+                              
+                                <div class="mb-3">
+                                    <label for="inputBirthDate" class="form-label">Birth Date</label>
+                                    <input type="date" class="form-control" id="inputBirthDate" name="birthDate" value="<?= $row['pays']; ?>"
+                                        required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="inputClass" class="form-label">Class</label>
+                                    <input type="text" class="form-control" id="inputClass" name="class" value="<?= $row['ville']; ?>" required>
+                                </div>
+                                <button type="submit" name="update" class="btn btn-success">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </tr>   <?php }}?>
       </tbody>
     </table>
@@ -234,7 +274,7 @@ session_start();
       &copy; Copyright <strong><span>YouBooking</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
-     Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
     </div>
   </footer>
   <!-- Vendor JS Files -->
@@ -250,7 +290,13 @@ session_start();
   </div>
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+<script>
 
+// Initialization for ES Users
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 
 </html>
